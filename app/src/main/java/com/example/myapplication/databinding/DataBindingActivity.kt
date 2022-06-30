@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.myapplication.databinding
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,24 +11,25 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
 import androidx.databinding.DataBindingUtil
+import com.example.myapplication.R
 import com.example.myapplication.databinding.ActivityMainBinding
-import com.example.myapplication.databinding.DataBindingActivity
 
 
-class MainActivity : AppCompatActivity() {
+class DataBindingActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
-    private lateinit var binding: ActivityMainBinding
-
+    private lateinit var binding: ActivityDatabindingBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val intent : Intent
-        binding = ActivityMainBinding.inflate(layoutInflater)
+
+        binding = ActivityDatabindingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.btnDatabinding.setOnClickListener{
-            val intent  = Intent(this,DataBindingActivity::class.java)
-            startActivity(intent)
+        binding.btnDagger.setOnClickListener{
+            //setting values to student object..
+
+            // setStudentvalue(binding.etName.text.toString(),binding.etCity.text.toString())
+            binding.student = setStudentvalue(binding.etName.text.toString(),binding.etCity.text.toString())
         }
 
         }
@@ -47,6 +48,12 @@ class MainActivity : AppCompatActivity() {
             R.id.action_settings -> true
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    fun setStudentvalue(name:String,city:String):Student{
+        val student = Student(name,city)
+
+        return student
     }
 
 }
